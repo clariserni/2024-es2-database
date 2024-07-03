@@ -103,4 +103,5 @@ from student s
 inner join course_subscription cs on s.id = cs.student_id 
 inner join course c on c.id = cs.course_id
 group by c.name
+order by studentNumber desc 
 limit 1;
