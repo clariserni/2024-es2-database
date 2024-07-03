@@ -34,9 +34,6 @@ select count(*) as totalNumber
 from student;
 
 -- Esercizi con GROUP BY e HAVING
--- res: 
-
-
 
 -- 6. Conta quanti corsi sono offerti in ogni dipartimento.
 -- res: 
@@ -47,60 +44,63 @@ group by department;
 
 
 -- 8. Elenca il numero di studenti iscritti per ogni anno di iscrizione.
--- res: 
+-- res: 5 (3, 2, 2, 2, 1)
 
+select count(*) as students, subscription_year 
+from student 
+group by subscription_year;
 
-
--- 10. Trova i professori che insegnano più di un corso.
--- res: 
 
 
 
 -- Esercizi con JOIN
--- res: 
-
-
-
 -- 11. Mostra il nome di ogni studente insieme al nome del corso a cui sono iscritti.
--- res: 
+-- res: 30
 
+select s.name, c.name
+from student s 
+inner join course_subscription cs on s.id = cs.student_id
+inner join course c on cs.course_id = c.id;
 
 
 -- 12. Elenca tutti i corsi insieme ai nomi dei professori che li insegnano.
--- res: 
+-- res: 10
 
-
+select c.name as courseName, p.name as professorName
+from course c 
+inner join professor p on c.professor_id = p.id;
 
 -- 13. Trova gli studenti e i corsi relativi al dipartimento di Chimica.
--- res: 
+-- res: 3
 
-
+select s.name as studentName, c.name as courseName
+from student s
+inner join course_subscription cs on s.id = cs.student_id
+inner join course c on cs.course_id = c.id
+where department = 'Chimica';
 
 -- 14. Visualizza i nomi degli studenti e i corsi che hanno frequentato nel 2022.
--- res: 
+-- res: 6
 
-
+select s.name as studentName, c.name as course_2022
+from student s
+inner join course_subscription cs on s.id = cs.student_id
+inner join course c on cs.course_id = c.id
+where s.subscription_year = 2022;
 
 -- 15. Elencare i professori con i loro corsi e i relativi dipartimenti.
--- res: 
+-- res: 10
 
-
-
--- 16. Trova i corsi senza studenti iscritti.
--- res: 
-
-
-
--- 17. Mostra i corsi con più di 5 iscritti.
--- res: 
-
-
-
+select p.name, c.name, c.department
+from professor p 
+inner join course c on p.id = c.professor_id;
 
 -- 19. Visualizza i corsi con il maggior numero di studenti.
--- res: 
+-- res: 1 (3)
 
-
-
--- 20. Trova gli studenti che sono iscritti a più di 3 corsi.
--- res: 
+select count(*) as studentNumber, c.name
+from student s 
+inner join course_subscription cs on s.id = cs.student_id 
+inner join course c on c.id = cs.course_id
+group by c.name
+limit 1;
