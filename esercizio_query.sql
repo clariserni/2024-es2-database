@@ -4,7 +4,7 @@
 
 select *
 from professor 
-where department = 'Informatica';
+where department like 'Informatica';
 
 -- 2. Elenca tutti gli studenti iscritti nell'anno 2021.
 -- res: 
@@ -18,7 +18,7 @@ where subscription_year = 2021;
 
 select name
 from course 
-where department = 'Fisica';
+where department like 'Fisica';
 
 
 -- 4. Mostra i nomi dei corsi insieme ai relativi dipartimenti.
@@ -77,7 +77,7 @@ select s.name as studentName, c.name as courseName
 from student s
 inner join course_subscription cs on s.id = cs.student_id
 inner join course c on cs.course_id = c.id
-where department = 'Chimica';
+where department like 'Chimica';
 
 -- 14. Visualizza i nomi degli studenti e i corsi che hanno frequentato nel 2022.
 -- res: 6
@@ -103,5 +103,6 @@ from student s
 inner join course_subscription cs on s.id = cs.student_id 
 inner join course c on c.id = cs.course_id
 group by c.name
-order by studentNumber desc 
+order by studentNumber desc
 limit 1;
+
